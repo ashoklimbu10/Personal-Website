@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Calculator</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+    .calculator {
+      border: 3px solid white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #0ff, 0 0 40px #0ff inset;
+      animation: glow 2s infinite alternate;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 60px);
+      gap: 10px;
+      background-color: #111;
+    }
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+      }
+      100% {
+        box-shadow: 0 0 20px #0ff, 0 0 40px #0ff inset;
+      }
+    }
+    .display {
+      grid-column: span 4;
+      background: #000;
+      border: none;
+      color: #0ff;
+      font-size: 2rem;
+      text-align: right;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: inset 0 0 10px #0ff;
+    }
+    button {
+      font-size: 1.5rem;
+      padding: 10px;
+      background-color: #222;
+      color: #0ff;
+      border: 2px solid #0ff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #0ff;
+      color: black;
+    }
+    .span-two {
+      grid-column: span 2;
+    }
+    .span-four {
+      grid-column: span 4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Calculator - by Hari S. Limbu</h1>
+  <div class="calculator">
+    <input type="text" class="display" id="display" disabled>
+    <button onclick="append('7')">7</button>
+    <button onclick="append('8')">8</button>
+    <button onclick="append('9')">9</button>
+    <button onclick="append('/')">/</button>
+    <button onclick="append('4')">4</button>
+    <button onclick="append('5')">5</button>
+    <button onclick="append('6')">6</button>
+    <button onclick="append('*')">*</button>
+    <button onclick="append('1')">1</button>
+    <button onclick="append('2')">2</button>
+    <button onclick="append('3')">3</button>
+    <button onclick="append('-')">-</button>
+    <button onclick="append('0')">0</button>
+    <button onclick="append('.')">.</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="append('+')">+</button>
+    <button class="span-two" onclick="clearDisplay()">C</button>
+    <button class="span-two" onclick="checkOddEven()">Odd/Even</button>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function append(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch (e) {
+        display.value = 'Error';
+      }
+    }
+
+    function checkOddEven() {
+      let value = parseFloat(display.value);
+      if (isNaN(value)) {
+        display.value = 'Not a number';
+      } else if (!Number.isInteger(value)) {
+        display.value = 'Not an integer';
+      } else {
+        display.value = (value % 2 === 0) ? 'Even' : 'Odd';
+      }
+    }
+  </script>
+</body>
+</html>
