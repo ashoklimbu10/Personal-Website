@@ -134,8 +134,8 @@
         }
       });
 
-      document.getElementById('year').textContent = now.getFullYear();
-    }
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+document.getElementById('year').textContent = now.toLocaleDateString('en-US', options);    }
 
     updateClock();
     setInterval(updateClock, 1000);
