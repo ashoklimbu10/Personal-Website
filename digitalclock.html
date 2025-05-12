@@ -6,8 +6,7 @@
   <title>Digital Clock</title>
   <style>
     body {
-      background: url('strange.jpeg') 
-      no-repeat center center fixed;
+      background: url('strange.jpeg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Courier New', Courier, monospace;
       display: flex;
@@ -17,22 +16,20 @@
       height: 100vh;
       margin: 0;
     }
-  
-  
-  .clock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(2px);
 
-}
-
+    .clock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(1px);
+      -webkit-backdrop-filter: blur(1px);
+      
     }
+
     @keyframes pulse {
       0% {
         box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
@@ -104,7 +101,7 @@
     <div class="time" id="time">12:00</div>
     <div class="seconds" id="seconds">00</div>
     <div class="ampm" id="ampm">AM</div>
-    <div class="year" id="year">2025</div>
+    <div class="year" id="year">May 12, 2025</div>
   </div>
 
   <script>
@@ -117,7 +114,7 @@
       let ampm = hours >= 12 ? 'PM' : 'AM';
 
       hours = hours % 12;
-      hours = hours ? hours : 12;
+      hours = hours ? hours : 12; // 0 should be 12
       hours = hours < 10 ? '0' + hours : hours;
       minutes = minutes < 10 ? '0' + minutes : minutes;
       seconds = seconds < 10 ? '0' + seconds : seconds;
@@ -134,8 +131,9 @@
         }
       });
 
-const options = { year: 'numeric', month: 'long', day: 'numeric' };
-document.getElementById('year').textContent = now.toLocaleDateString('en-US', options);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('year').textContent = now.toLocaleDateString('en-US', options);
+    }
 
     updateClock();
     setInterval(updateClock, 1000);
