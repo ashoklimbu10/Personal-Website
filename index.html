@@ -2,29 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hari Shankar Limbu</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Clock</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .clock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      border: 1px solid white;
+      border-radius: 10px;
+    }
+
+    .days {
+      display: flex;
+      margin-bottom: 10px;
+      gap: 10px;
+      font-size: 1.2rem;
+    }
+
+    .days span {
+      color: #444;
+    }
+
+    .days .active {
+      color: white;
+    }
+
+    .time {
+      font-size: 4rem;
+      letter-spacing: 6px;
+    }
+
+    .seconds {
+      font-size: 2rem;
+      color: #0ff;
+      margin-top: 5px;
+    }
+
+    .year {
+      margin-top: 10px;
+      font-size: 1.5rem;
+      color: #aaa;
+    }
+  </style>
 </head>
-  <nav class="top-navbar">
-  <a href="index.html" class="nav-item">Home</a>
-  <a href="myproject.html" class="nav-item highlight">My Projects</a>
-</nav>
 <body>
-  <div class="container">
-    <img src="aphoto.jpg" alt="Hari Shankar Limbu" width: 60; height: 60; class="profile-img" />
-    <h1 class="fade-in">Hari Shankar Limbu</h1>
-    <h2 id="typewriter" class="fade-in delay"></h2>
-    <p class="fade-in delay2">I live in Dharan, Sunsari. I completed my degree in Electronics, Communication and Information Engineering from IOE, Purwanchal Campus.</p>
-    <div class="social-icons fade-in delay3">
-      <a href="https://github.com/ashoklimbu10" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/iamashoklim" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="limashok212@email.com"><i class="fas fa-envelope"></i></a>
-      <a href="https://facebook.com/ashok1o"><i class="fab fa-facebook"></i></a>
-      <a href="https://www.instagram.com/harishankarlimbu"><i class="fab fa-instagram" ></i> </a>
+  <div class="clock">
+    <div class="days">
+      <span id="sun">SUN</span>
+      <span id="mon">MON</span>
+      <span id="tue">TUE</span>
+      <span id="wed">WED</span>
+      <span id="thu">THU</span>
+      <span id="fri">FRI</span>
+      <span id="sat">SAT</span>
     </div>
+    <div class="time" id="time">12:00</div>
+    <div class="seconds" id="seconds">00</div>
+    <div class="year" id="year">(2025)</div>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      // Time
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      document.getElementById('time').textContent = `${hours}:${minutes}`;
+      document.getElementById('seconds').textContent = `${seconds}`;
+
+      // Day
+      const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      days.forEach((day, index) => {
+        document.getElementById(day).classList.remove('active');
+        if (index === now.getDay()) {
+          document.getElementById(day).classList.add('active');
+        }
+      });
+
+      // Year
+      document.getElementById('year').textContent = now.getFullYear();
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
 </body>
 </html>
